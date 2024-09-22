@@ -1,0 +1,20 @@
+.bg-dark-blue {
+    background-color: #2e3b4e; /* Ajusta el color según la paleta */
+}
+
+.text-green-400 {
+    color: #4CAF50; /* Ajusta este color si prefieres otro tono de verde */
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+
+input::placeholder {
+    color: #ccc;
+}

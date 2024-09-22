@@ -1,0 +1,87 @@
+/* Header styling */
+header {
+    height: 60px;
+    background-color: #343a40;
+    padding: 10px 20px;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition: padding-left 0.3s ease-in-out; /* Transición para ajustarse al sidebar */
+}
+
+/* Ajuste cuando el sidebar está visible */
+header.sidebar-visible {
+    padding-left: 250px; /* Alinear con el sidebar */
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #343a40;
+    height: 100vh;
+    padding-top: 20px;
+    position: fixed;
+    top: 60px; /* Ajustado para que no se solape con el header */
+    left: 0;
+    width: 250px; /* Ancho fijo del sidebar */
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.sidebar.collapsed {
+    transform: translateX(-100%);
+}
+
+/* Main content adjustments */
+.main-content {
+    margin-left: 250px; /* Espacio para el sidebar */
+    padding-top: 70px; /* Espacio para el header */
+    transition: margin-left 0.3s ease-in-out;
+    width: calc(100% - 250px);
+}
+
+.main-content.expanded {
+    margin-left: 0;
+    padding-top: 70px; /* Mantener espacio para el header */
+    width: 100%;
+}
+
+/* Fix the issue of content being hidden */
+.main-content.fixed-top {
+    position: relative;
+    top: 60px; /* Ajuste para que el contenido no se oculte bajo el header */
+}
+
+.card-title,
+.card-text {
+    text-align: center;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+/* Icono de colapso */
+.toggle-btn {
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    background-color: #343a40;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-btn:hover {
+    background-color: #495057;
+}
+
+#toggle-icon {
+    font-size: 1.5rem;
+}

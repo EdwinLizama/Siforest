@@ -1,0 +1,15 @@
+body {
+    background-color: #212529;
+    color: #f8f9fa;
+}
+
+.card {
+    background-color: #343a40;
+    color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.navbar, .card-header {
+    background-color: #212529;
+    color: #f8f9fa;
+}

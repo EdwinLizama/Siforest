@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+  background: #357ae8;
+  font-family: "Ubuntu", helvetica;
+}
+.form-header img {
+  display: block;
+  margin: 0 auto 20px auto;
+  max-width: 480px;  /* Cambia el tamaño máximo de la imagen aquí */
+  width: 150%;       /* Para que la imagen sea responsiva */
+  height: auto;      /* Mantener la proporción de la imagen */
+}
+.contenedor-formularios {
+  background: #343a46;
+  padding: 40px;
+  max-width: 600px;
+  margin: 40px auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+
+h1 {
+  text-align: center;
+  color: #fff;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+/* Tabs */
+.contenedor-tabs {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 40px;
+}
+
+.contenedor-tabs li {
+  width: 50%;
+  float: left;
+}
+
+.contenedor-tabs li a {
+  display: block;
+  text-decoration: none;
+  padding: 15px;
+  background: rgba(160, 179, 176, 0.25);
+  color: #a0b3b0;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+.contenedor-tabs li a:hover,
+.contenedor-tabs .active a {
+  background: #4285F4;
+  color: #fff;
+}
+
+/* Form Inputs */
+.contenedor-input label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.contenedor-input input,
+.contenedor-input select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.contenedor-input input:focus,
+.contenedor-input select:focus {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Buttons */
+.button-block {
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
+  background: #4285F4;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  color: white;
+}
+
+.button-block:hover {
+  background: #357ae8;
+}
+
+/* Forgot Password Link */
+.forgot {
+  margin-top: -20px;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 500px) {
+    .form-header img {
+        max-width: 100px; /* Reduzco el tamaño de la imagen en pantallas pequeñas */
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .form-header img {
+        max-width: 80px; /* Aún más pequeño en pantallas muy pequeñas */
+    }
+}
+

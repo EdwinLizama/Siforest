@@ -1,0 +1,73 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Raleway', sans-serif;
+}
+
+h2 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    max-width: 500px;
+}
+
+.search-input {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.table-responsive {
+    margin-top: 20px;
+}
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table thead th {
+    background-color: #343a40;
+    color: white;
+}
+
+.btn {
+    font-weight: 500;
+    padding: 6px 12px;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #fff;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.modal-content {
+    border-radius: 8px;
+    padding: 20px;
+}
