@@ -53,6 +53,20 @@
     <div class="container mt-5">
         <h2 class="mb-4 text-center">Administración de Documentos</h2>
 
+        <!-- Barra de búsqueda y filtros -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <input type="text" id="buscarDocumento" class="form-control"
+                    placeholder="Buscar por nombre de documento...">
+            </div>
+            <div class="col-md-3">
+                <input type="date" id="filtrarFecha" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary" onclick="buscarDocumento()">Buscar</button>
+                <button class="btn btn-secondary" onclick="limpiarBusqueda()">Limpiar</button>
+            </div>
+        </div>
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="mb-0">Todos los Documentos</h3>
@@ -62,7 +76,7 @@
             </div>
 
             <div class="card-body">
-                <table class="table table-hover table-bordered">
+                <table id="documentosTable" class="table table-hover table-bordered">
                     <thead class="table-light">
                         <tr>
                             <th>Nombre del Documento</th>
@@ -131,6 +145,10 @@
                         @endforeach
                     </tbody>
                 </table>
+                <!-- Mensaje cuando no se encuentran resultados -->
+                <div id="noResultsMessage" style="display:none;" class="alert alert-warning">
+                    No se encontraron documentos que coincidan con la búsqueda.
+                </div>
             </div>
         </div>
     </div>
@@ -167,5 +185,36 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function buscarDocumento() {
+            const searchValue = document.getElementById('buscarDocumento').value.toLowerCase();
+            const filterDate = document.getElementById('filtrarFecha').value;
+            const rows = document.querySelectorAll('#documentosTable tbody tr');
+            let hasResults = false;
+
+            rows.forEach(row => {
+                const nombre = row.cells[0].innerText.toLowerCase();
+                const fecha = row.cells[4].innerText.split('/').reverse().join('-'); // Convertir dd/mm/yyyy a yyyy-mm-dd
+
+                const nombreMatch = nombre.includes(searchValue);
+                const fechaMatch = filterDate === '' || fecha === filterDate;
+
+                if (nombreMatch && fechaMatch) {
+                    row.style.display = '';
+                    hasResults = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            document.getElementById('noResultsMessage').style.display = hasResults ? 'none' : 'block';
+        }
+
+        function limpiarBusqueda() {
+            document.getElementById('buscarDocumento').value = '';
+            document.getElementById('filtrarFecha').value = '';
+            buscarDocumento();
+        }
+    </script>
 </body>
 </html>

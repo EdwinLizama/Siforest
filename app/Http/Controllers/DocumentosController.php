@@ -80,7 +80,11 @@ class DocumentosController extends Controller
         }
 
         $documento->save(); // Guardar los cambios
-
+        // Registrar actividad reciente
+        ActividadReciente::create([
+            'descripcion' => 'Documento actualizado: ' . $request->nombre,
+            'user_id' => Auth::user()->id,
+        ]);
         return redirect()->back()->with('success', 'Documento actualizado correctamente.');
     }
     public function edit($id)
@@ -96,7 +100,11 @@ class DocumentosController extends Controller
         $documento = Documento::findOrFail($id);
         Storage::delete($documento->archivo);
         $documento->delete();
-
+        // Registrar actividad reciente
+        ActividadReciente::create([
+            'descripcion' => 'Documento eliminado: ' . $documento->nombre_documento,
+            'user_id' => Auth::user()->id,
+        ]);
         return redirect()->route('user.dashboard')->with('success', 'Documento eliminado correctamente.');
     }
     
@@ -105,7 +113,10 @@ class DocumentosController extends Controller
         $documento = Documento::findOrFail($id);
         Storage::delete($documento->archivo);
         $documento->delete();
-
+        ActividadReciente::create([
+            'descripcion' => 'Documento eliminado: ' . $documento->nombre_documento,
+            'user_id' => Auth::user()->id,
+        ]);
         return redirect()->route('admin.admindocumentos')->with('success', 'Documento eliminado correctamente.');
     }
 
