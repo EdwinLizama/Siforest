@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
     // Rutas para la gestión de documentos
     Route::get('/admin/documentos', [DocumentosController::class, 'index'])->name('admin.documentos');
-    Route::post('admin/documentos/store', [DocumentosController::class, 'store'])->name('documentos.store');
+    Route::post('admin/documentos/store', [DocumentosController::class, 'store'])->name('admin.documentos.store');
     Route::put('admin/documentos/{id}', [DocumentosController::class, 'update'])->name('admin.documentos.update');
     Route::delete('admin/documentos/{id}', [DocumentosController::class, 'destroyAdmin'])->name('admin.documentos.destroy');
     Route::get('/documentos/download/{id}', [DocumentosController::class, 'download'])->name('admin.documentos.download');
