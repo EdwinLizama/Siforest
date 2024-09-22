@@ -91,7 +91,8 @@
                                         class="btn btn-primary btn-sm">
                                         <i class="fas fa-download"></i> Descargar
                                     </a>
-                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal-{{ $documento->id }}">
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#editModal-{{ $documento->id }}">
                                         <i class="fas fa-edit"></i> Editar
                                     </button>
                                     <form action="{{ route('documentos.destroy', $documento->id) }}" method="POST"
@@ -102,18 +103,61 @@
                                             <i class="fas fa-trash-alt"></i> Eliminar
                                         </button>
                                     </form>
-                                    <!-- Botón para ver el documento en un modal -->
-                                    <a href="#" class="btn btn-info btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#verDocumentoModal-{{ $documento->id }}">
+                                    <a href="{{ route('documentos.show', $documento->id) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i> Ver
                                     </a>
+                                    
+
                                 </td>
                             </tr>
+
+                            <!-- Modal para editar documento -->
+                            <div class="modal fade" id="editModal-{{ $documento->id }}" tabindex="-1"
+                                aria-labelledby="editModalLabel-{{ $documento->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel-{{ $documento->id }}">Editar
+                                                Documento</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('documentos.update', $documento->id) }}"
+                                                method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="mb-3">
+                                                    <label for="nombre_documento" class="form-label">Nombre del
+                                                        Documento</label>
+                                                    <input type="text" class="form-control" id="nombre_documento"
+                                                        name="nombre" value="{{ $documento->nombre_documento }}"
+                                                        required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="descripcion" class="form-label">Descripción</label>
+                                                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>{{ $documento->descripcion }}</textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="archivo" class="form-label">Cambiar Archivo (.doc,
+                                                        .pdf)</label>
+                                                    <input type="file" class="form-control" id="archivo"
+                                                        name="archivo" accept=".doc,.pdf">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Guardar
+                                                    Cambios</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
                         @endforeach
                     </tbody>
                 </table>
                 <!-- Mensaje si no hay resultados -->
-                <p id="noResultsMessage" class="text-center" style="display: none;">No se encontraron coincidencias.</p>
+                <p id="noResultsMessage" class="text-center" style="display: none;">No se encontraron coincidencias.
+                </p>
             </div>
         </div>
     </div>
@@ -127,7 +171,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('documentos.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('user.documentos.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre del Documento</label>
@@ -148,40 +193,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal para editar documento -->
-    <div class="modal fade" id="editModal-{{ $documento->id }}" tabindex="-1"
-        aria-labelledby="editModalLabel-{{ $documento->id }}" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel-{{ $documento->id }}">Editar Documento</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('documentos.update', $documento->id) }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="mb-3">
-                            <label for="nombre_documento" class="form-label">Nombre del Documento</label>
-                            <input type="text" class="form-control" id="nombre_documento" name="nombre"
-                                value="{{ $documento->nombre_documento }}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>{{ $documento->descripcion }}</textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="archivo" class="form-label">Cambiar Archivo (.doc, .pdf)</label>
-                            <input type="file" class="form-control" id="archivo" name="archivo"
-                                accept=".doc,.pdf">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
     <!-- Bootstrap JS -->

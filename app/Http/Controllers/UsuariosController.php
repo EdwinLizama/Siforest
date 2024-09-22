@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UsuarioCreado;
-
+use Illuminate\Support\Facades\DB;
 class UsuariosController extends Controller
 {
     /**
@@ -91,6 +91,12 @@ class UsuariosController extends Controller
         if ($redireccion = $this->verificarAdmin()) {
             return $redireccion;
         }
+        // Eliminar los registros en actividad_reciente relacionados con el usuario
+        DB::table('actividad_reciente')->where('user_id', $id)->delete();
+
+        // Luego, eliminar el usuario
+        User::find($id)->delete();
+
 
         // Eliminar usuario
         $usuario = User::findOrFail($id);

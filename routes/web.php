@@ -39,12 +39,22 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/language/update', [AdminController::class, 'updateLanguage'])->name('admin.language.update');
 
 
-    // Rutas para la gestión de documentos
-    Route::get('/admin/documentos', [DocumentosController::class, 'index'])->name('admin.documentos');
-    Route::post('admin/documentos/store', [DocumentosController::class, 'store'])->name('admin.documentos.store');
-    Route::put('admin/documentos/{id}', [DocumentosController::class, 'update'])->name('admin.documentos.update');
-    Route::delete('admin/documentos/{id}', [DocumentosController::class, 'destroyAdmin'])->name('admin.documentos.destroy');
-    Route::get('/documentos/download/{id}', [DocumentosController::class, 'download'])->name('admin.documentos.download');
+// Rutas de gestión de documentos para administradores
+Route::get('/admin/documentos', [DocumentosController::class, 'index'])->name('admin.documentos');
+Route::post('admin/documentos/store', [DocumentosController::class, 'store'])->name('admin.documentos.store');
+Route::put('admin/documentos/{id}', [DocumentosController::class, 'update'])->name('admin.documentos.update');
+Route::delete('admin/documentos/{id}', [DocumentosController::class, 'destroyAdmin'])->name('admin.documentos.destroy');
+Route::get('/admin/documentos/download/{id}', [DocumentosController::class, 'download'])->name('admin.documentos.download');
+
+// Rutas de gestión de documentos para usuarios normales
+Route::get('/documentos', [DocumentosController::class, 'index'])->name('documentos.index'); // Listar documentos
+Route::get('/documentos/create', [DocumentosController::class, 'create'])->name('documentos.create'); // Mostrar formulario para subir un nuevo documento
+Route::post('/documentos', [DocumentosController::class, 'store'])->name('user.documentos.store'); // Almacenar nuevo documento
+Route::get('/documentos/{id}/edit', [DocumentosController::class, 'edit'])->name('documentos.edit');
+Route::put('/documentos/{id}', [DocumentosController::class, 'update'])->name('documentos.update');
+Route::delete('/documentos/{id}', [DocumentosController::class, 'destroy'])->name('documentos.destroy');
+Route::get('/documentos/{id}/download', [DocumentosController::class, 'download'])->name('documentos.download'); 
+Route::get('/documentos/show/{id}', [DocumentosController::class, 'show'])->name('documentos.show');
 
 
     // Ruta para el dashboard del usuario
@@ -55,15 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/perfil/cambiar-contrasena', [UserController::class, 'cambiarContrasena'])->name('user.cambiar-contrasena');
     Route::post('/perfil/cambiar-contrasena', [UserController::class, 'actualizarContrasena'])->name('user.cambiar-contrasena.update');
 
-    // Rutas para documentos (accesibles para usuarios y administradores)
-    Route::get('/documentos', [DocumentosController::class, 'index'])->name('documentos.index'); // Listar documentos
-    Route::get('/documentos/create', [DocumentosController::class, 'create'])->name('documentos.create'); // Mostrar formulario para subir un nuevo documento
-    Route::post('/documentos', [DocumentosController::class, 'store'])->name('documentos.store'); // Almacenar nuevo documento
-    Route::get('/documentos/{id}/edit', [DocumentosController::class, 'edit'])->name('documentos.edit');
-    Route::put('/documentos/{id}', [DocumentosController::class, 'update'])->name('documentos.update');
-    Route::delete('/documentos/{id}', [DocumentosController::class, 'destroy'])->name('documentos.destroy'); // Eliminar documento
-    Route::get('/documentos/{id}/download', [DocumentosController::class, 'download'])->name('documentos.download'); // Descargar documento
-    Route::get('/documentos/show/{id}', [DocumentosController::class, 'show'])->name('documentos.show');
+
 
 
 
@@ -75,8 +77,9 @@ Route::middleware('auth')->group(function () {
 /**
  * Rutas de autenticación (no protegidas)
  */
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
+
 
 /**
  * Rutas de registro (no protegidas)

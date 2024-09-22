@@ -110,9 +110,15 @@ class DocumentosController extends Controller
     }
 
     //mostrar documento
-    public function show(Documento $documento)
-    {
-        $fileUrl = Storage::url($documento->archivo); // Genera la URL pública
-        return response()->json(['url' => $fileUrl]);
-    }
+  // Mostrar documento
+public function show($id)
+{
+    $documento = Documento::findOrFail($id);
+
+    // Devuelve el archivo almacenado en la ruta 'app' en el almacenamiento
+    return response()->file(storage_path('app/' . $documento->archivo));
+}
+
+    
+    
 }

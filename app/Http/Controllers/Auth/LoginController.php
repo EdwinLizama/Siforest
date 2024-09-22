@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -8,21 +7,24 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    // Mostrar formulario de login
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
+    // Manejar el intento de login
     public function login(Request $request)
     {
-        // Validar el usuario y la contraseña
+        // Validar los datos ingresados
         $credentials = $request->validate([
-            'usuario' => ['required', 'string', 'exists:users,usuario'], // Cambia 'usuario' a 'string' y 'exists'
+            'usuario' => ['required', 'string'],
             'password' => ['required'],
         ]);
-        
-        // Intentar el login con el campo 'usuario' en lugar de 'email'
+
+        // Intentar iniciar sesión con 'usuario' y 'password'
         if (Auth::attempt(['usuario' => $request->usuario, 'password' => $request->password])) {
+            // Regenerar la sesión para evitar fijación de sesión
             $request->session()->regenerate();
     
             // Redirigir según el rol del usuario
@@ -33,37 +35,22 @@ class LoginController extends Controller
             }
         }
     
-        // Si las credenciales son incorrectas
+        // Si las credenciales no coinciden, regresar con un mensaje de error
         return back()->withErrors([
-            'usuario' => 'Las credenciales no coinciden con nuestros registros.',
+            'usuario' => 'Las credenciales no son correctas.',
         ]);
     }
-    
 
-
-    /**
-     * Redirigir según el rol del usuario después del login.
-     */
-    protected function authenticated(Request $request, $user)
-    {
-        // Verificar el rol del usuario
-        dd('Redirigiendo al dashboard', $user->rol);
-
-        if ($user->rol === 'admin') {
-            return redirect()->route('admin.dashboard');
-        } else {
-            return redirect()->route('user.dashboard');
-        }
-    }
-
-
-
+    // Método para cerrar sesión
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::logout(); // Cerrar sesión
+
+        // Invalida la sesión y regenera el token de sesión
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+        // Redirigir al login
         return redirect('/login');
     }
 }

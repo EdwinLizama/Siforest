@@ -42,30 +42,90 @@ header.sidebar-visible {
     padding-top: 70px; /* Espacio para el header */
     transition: margin-left 0.3s ease-in-out;
     width: calc(100% - 250px);
+    background-color: #f8f9fa; /* Fondo claro para el área principal */
+    padding-bottom: 40px; /* Espacio inferior */
 }
 
-.main-content.expanded {
-    margin-left: 0;
-    padding-top: 70px; /* Mantener espacio para el header */
-    width: 100%;
-}
-
-/* Fix the issue of content being hidden */
-.main-content.fixed-top {
-    position: relative;
-    top: 60px; /* Ajuste para que el contenido no se oculte bajo el header */
-}
-
-.card-title,
-.card-text {
-    text-align: center;
-}
-
+/* Bordes suaves y sombras */
 .card {
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombras suaves */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para hover */
     margin-bottom: 20px;
 }
 
-/* Icono de colapso */
+/* Efecto hover en tarjetas */
+.card:hover {
+    transform: translateY(-5px); /* Elevar un poco la tarjeta */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más fuerte en hover */
+}
+
+/* Botones con bordes redondeados */
+.btn {
+    border-radius: 25px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave para los botones */
+}
+
+/* Hover en botones */
+.btn:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera en hover */
+    background-color: #495057; /* Color ligeramente más oscuro en hover */
+}
+
+/* Iconos en las tarjetas */
+.card .card-title i {
+    margin-right: 10px; /* Espacio entre icono y texto */
+}
+
+/* Actividad reciente estilo */
+.activity-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.activity-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: background-color 0.3s ease;
+}
+
+.activity-list li:hover {
+    background-color: #f1f3f5; /* Fondo más claro en hover */
+}
+
+/* Sección de actividad reciente */
+.card-header, .card-body {
+    text-align: center;
+}
+
+/* Bordes redondeados para el contenido */
+.card {
+    border-radius: 15px;
+}
+
+/* Separadores para secciones */
+.divider {
+    height: 2px;
+    width: 80%;
+    background-color: #dee2e6;
+    margin: 30px auto;
+}
+
+/* Efecto hover para logout */
+.logout:hover {
+    color: #f1f3f5;
+    text-decoration: underline;
+}
+
+/* Iconos dentro de las tarjetas */
+.card .card-title i {
+    margin-right: 10px;
+}
+
+/* Pestaña para ocultar/mostrar el sidebar */
 .toggle-btn {
     position: absolute;
     top: 50%;
@@ -76,6 +136,7 @@ header.sidebar-visible {
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s;
+    z-index: 1101; /* Asegura que el botón esté por encima del sidebar */
 }
 
 .toggle-btn:hover {
@@ -84,4 +145,28 @@ header.sidebar-visible {
 
 #toggle-icon {
     font-size: 1.5rem;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    /* Sidebar se colapsa automáticamente en pantallas pequeñas */
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    /* Asegúrate de que el contenido ocupe todo el ancho */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Header se ajusta sin padding a la izquierda */
+    header.sidebar-visible {
+        padding-left: 20px;
+    }
+
+    /* Ajusta la posición del botón de colapso en pantallas pequeñas */
+    .toggle-btn {
+        right: 10px;
+    }
 }

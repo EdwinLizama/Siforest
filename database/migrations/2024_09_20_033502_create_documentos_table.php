@@ -15,8 +15,9 @@ class CreateDocumentosTable extends Migration
             $table->string('archivo'); // Guardar la ruta del archivo
             $table->string('categoria')->nullable(); // Este campo es opcional
             $table->string('region'); // La región del usuario
-            $table->foreignId('usuario_subio')->constrained('users'); // Relación con la tabla de usuarios
+            $table->foreignId('usuario_subio')->nullable()->constrained('users')->onDelete('set null'); // Establecer en NULL al eliminar usuario
             $table->timestamps(); // Incluye fecha de creación y actualización
+            $table->string('nombreusuario')->nullable(); // Nombre del usuario que subió el documento
         });
     }
 
@@ -25,4 +26,5 @@ class CreateDocumentosTable extends Migration
         Schema::dropIfExists('documentos');
     }
 }
+
 

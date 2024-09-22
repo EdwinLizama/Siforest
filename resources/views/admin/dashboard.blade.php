@@ -80,52 +80,54 @@
             <!-- Main content -->
             <div id="main-content" class="col main-content">
                 <div class="row justify-content-center">
-                    <!-- Stats Card 1: Usuarios Activos -->
-                    <div class="col-md-4">
-                        <div class="card text-white bg-primary mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Usuarios Activos</h5>
-                                <p class="card-text text-center">{{ $usuariosActivos }}</p>
+                    <!-- Stats Cards -->
+                    <div class="container my-5">
+                        <div class="row justify-content-center" style="width: 70%; margin: 0 auto;">
+                            <div class="col-md-4">
+                                <div class="card text-white bg-primary mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center"><i class="fas fa-users"></i> Usuarios Activos</h5>
+                                        <p class="card-text text-center">{{ $usuariosActivos }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card text-white bg-success mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center"><i class="fas fa-file-alt"></i> Documentos Subidos</h5>
+                                        <p class="card-text text-center">{{ $documentosSubidos }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="card text-white bg-info mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center"><i class="fas fa-database"></i> Tamaño Total de Archivos</h5>
+                                        <p class="card-text text-center">{{ $totalSizeInMB }} MB</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Stats Card 2: Documentos Subidos -->
-                    <div class="col-md-4">
-                        <div class="card text-white bg-success mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Documentos Subidos</h5>
-                                <p class="card-text text-center">{{ $documentosSubidos }}</p>
+                    <!-- Recent Activity -->
+                    <div class="container my-5">
+                        <div class="card mx-auto" style="width: 70%;">
+                            <div class="card-header text-center">
+                                Actividad Reciente
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Stats Card 3: Tamaño Total de Archivos -->
-                    <div class="col-md-4">
-                        <div class="card text-white bg-info mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Tamaño Total de Archivos</h5>
-                                <p class="card-text text-center">{{ $totalSizeInMB }} MB</p>
+                            <div class="card-body text-center">
+                                <ul class="activity-list">
+                                    @foreach($actividadesRecientes as $actividad)
+                                        <li>{{ $actividad['mensaje'] }} - {{ $actividad['fecha'] }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Recent Activity -->
-                <div class="card">
-                    <div class="card-header text-center">
-                        Actividad Reciente
-                    </div>
-                    <div class="card-body text-center">
-                        <ul>
-                            @foreach($actividadesRecientes as $actividad)
-                                <li>{{ $actividad['mensaje'] }} - {{ $actividad['fecha'] }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-                
-                
             </div>
         </div>
     </div>

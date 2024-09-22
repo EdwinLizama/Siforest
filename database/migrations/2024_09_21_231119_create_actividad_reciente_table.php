@@ -10,7 +10,10 @@ class CreateActividadRecienteTable extends Migration
         Schema::create('actividad_reciente', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion'); // Descripción de la actividad
-            $table->foreignId('user_id')->constrained('users'); // Relación con la tabla de usuarios
+            $table->foreignId('user_id')
+                  ->nullable() // Permitir que el campo sea NULL
+                  ->constrained('users')
+                  ->onDelete('set null'); // Establecer el valor de user_id a NULL al eliminar el usuario
             $table->timestamps(); // Fechas de creación y actualización
         });
     }
@@ -20,4 +23,5 @@ class CreateActividadRecienteTable extends Migration
         Schema::dropIfExists('actividad_reciente');
     }
 }
+
 
