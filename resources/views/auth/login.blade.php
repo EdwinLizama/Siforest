@@ -8,8 +8,9 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Raleway|Ubuntu" rel="stylesheet">
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="{{ asset('css/iniciosesion.css') }}">
+  <!-- Estilos usando Vite -->
+  @vite(['resources/css/iniciosesion.css'])
+
   <title>Formulario Login</title>
 </head>
 
@@ -52,8 +53,10 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- importar js -->
-  <script src="{{ asset('js/iniciosesion.js') }}"></script>
+
+  <!-- Importar JS usando Vite -->
+  @vite(['resources/js/iniciosesion.js'])
+
 </body>
 
 </html>
