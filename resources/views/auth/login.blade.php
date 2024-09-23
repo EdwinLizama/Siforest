@@ -10,7 +10,7 @@
 
   <!-- Estilos -->
   <link rel="stylesheet" href="{{ asset('css/iniciosesion.css') }}">
-  <title>Iniciar Sesión</title>
+  <title>Iniciar Sesión | SIFOREST</title>
 </head>
 
 <body>
@@ -18,8 +18,8 @@
   <!-- Contenedor del formulario -->
   <div class="contenedor-formulario">
     <div class="form-header">
-      <h1>Bienvenido</h1>
-      <p>Por favor, inicia sesión para continuar</p>
+      <h1>SIFOREST</h1>
+      <p>Bienvenido, por favor inicia sesión para continuar</p>
     </div>
     
     <form action="{{ route('login') }}" method="POST">

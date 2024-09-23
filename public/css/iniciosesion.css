@@ -14,29 +14,39 @@ body {
   padding: 40px;
   max-width: 400px;
   width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.contenedor-formulario:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .form-header h1 {
-  color: #333;
-  font-weight: 600;
-  margin-bottom: 10px;
-  font-size: 28px;
+  color: #6C63FF;
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 32px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .form-header p {
   color: #555;
   margin-bottom: 30px;
   font-size: 16px;
+  font-weight: 300;
 }
 
 /* Form Inputs */
 .contenedor-input {
   margin-bottom: 20px;
+  position: relative;
 }
 
 .contenedor-input label {
@@ -53,13 +63,15 @@ body {
   border: 1px solid #ddd;
   font-size: 16px;
   background-color: #f9f9f9;
-  transition: 0.3s;
+  transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .contenedor-input input:focus {
   border-color: #6C63FF;
   background-color: #fff;
   outline: none;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.3);
 }
 
 /* Submit Button */
@@ -67,17 +79,20 @@ body {
   width: 100%;
   padding: 15px;
   border-radius: 8px;
-  background: #6C63FF;
+  background: linear-gradient(90deg, #6C63FF, #3B82F6);
   border: none;
   color: white;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5);
 }
 
 .button-block:hover {
-  background: #3B82F6;
+  background: linear-gradient(90deg, #3B82F6, #6C63FF);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
 }
 
 /* Responsive Styles */
@@ -86,7 +101,7 @@ body {
     padding: 20px;
   }
   .form-header h1 {
-    font-size: 24px;
+    font-size: 26px;
   }
   .button-block {
     padding: 12px;
