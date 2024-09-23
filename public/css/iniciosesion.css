@@ -1,120 +1,95 @@
 /* General Styles */
 body {
-  background: #357ae8;
-  font-family: "Ubuntu", helvetica;
+  background: linear-gradient(135deg, #6C63FF, #3B82F6);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
-.form-header img {
-  display: block;
-  margin: 0 auto 20px auto;
-  max-width: 480px;  /* Cambia el tamaño máximo de la imagen aquí */
-  width: 150%;       /* Para que la imagen sea responsiva */
-  height: auto;      /* Mantener la proporción de la imagen */
-}
-.contenedor-formularios {
-  background: #343a46;
+
+.contenedor-formulario {
+  background: #fff;
   padding: 40px;
-  max-width: 600px;
-  margin: 40px auto;
-  border-radius: 4px;
-  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
-}
-
-h1 {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   text-align: center;
-  color: #fff;
-  font-weight: 300;
-  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Tabs */
-.contenedor-tabs {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 40px;
+.form-header h1 {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 28px;
 }
 
-.contenedor-tabs li {
-  width: 50%;
-  float: left;
-}
-
-.contenedor-tabs li a {
-  display: block;
-  text-decoration: none;
-  padding: 15px;
-  background: rgba(160, 179, 176, 0.25);
-  color: #a0b3b0;
-  font-size: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.5s ease;
-}
-
-.contenedor-tabs li a:hover,
-.contenedor-tabs .active a {
-  background: #4285F4;
-  color: #fff;
+.form-header p {
+  color: #555;
+  margin-bottom: 30px;
+  font-size: 16px;
 }
 
 /* Form Inputs */
+.contenedor-input {
+  margin-bottom: 20px;
+}
+
 .contenedor-input label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
 }
 
-.contenedor-input input,
-.contenedor-input select {
+.contenedor-input input {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
   font-size: 16px;
-  transition: background 0.3s ease;
+  background-color: #f9f9f9;
+  transition: 0.3s;
 }
 
-.contenedor-input input:focus,
-.contenedor-input select:focus {
-  background: rgba(255, 255, 255, 0.2);
+.contenedor-input input:focus {
+  border-color: #6C63FF;
+  background-color: #fff;
+  outline: none;
 }
 
-/* Buttons */
+/* Submit Button */
 .button-block {
   width: 100%;
   padding: 15px;
-  border-radius: 5px;
-  background: #4285F4;
+  border-radius: 8px;
+  background: #6C63FF;
   border: none;
+  color: white;
   font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.3s ease;
-  color: white;
 }
 
 .button-block:hover {
-  background: #357ae8;
-}
-
-/* Forgot Password Link */
-.forgot {
-  margin-top: -20px;
-  text-align: right;
-  margin-bottom: 20px;
+  background: #3B82F6;
 }
 
 /* Responsive Styles */
-@media screen and (max-width: 500px) {
-    .form-header img {
-        max-width: 100px; /* Reduzco el tamaño de la imagen en pantallas pequeñas */
-    }
-}
-
 @media screen and (max-width: 400px) {
-    .form-header img {
-        max-width: 80px; /* Aún más pequeño en pantallas muy pequeñas */
-    }
+  .contenedor-formulario {
+    padding: 20px;
+  }
+  .form-header h1 {
+    font-size: 24px;
+  }
+  .button-block {
+    padding: 12px;
+    font-size: 16px;
+  }
 }
-
