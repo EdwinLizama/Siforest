@@ -58,12 +58,12 @@ class AdminController extends Controller
     }
 
     // Actualizar el idioma del sistema
-    public function updateLanguage(Request $request)
+    /*public function updateLanguage(Request $request)
     {
         $admin = Auth::user();
         $admin->language = $request->input('language');
         $admin->save();
 
         return redirect()->back()->with('success', 'Idioma actualizado correctamente.');
-    }
+    }*/
 }
