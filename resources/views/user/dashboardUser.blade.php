@@ -18,6 +18,7 @@
             <a class="navbar-brand" href="#">SIFOREST</a>
             <div class="d-flex align-items-center ms-auto">
                 <span class="text-white me-3">Bienvenido, {{ Auth::user()->name }}</span>
+                <a href="{{ route('solicitudes') }}" class="btn btn-light me-2">Solicitudes</a>
                 <a href="{{ route('user.perfil') }}" class="btn btn-light me-2">Perfil</a>
                 <a href="{{ route('user.cambiar-contrasena') }}" class="btn btn-light me-2">Cambiar Contraseña</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -1,0 +1,143 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+ 
+}
+
+/* Estilo para la cabecera */
+.navbar {
+    background-color: #222427;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.navbar .nav-link {
+    color: #ffffff;
+}
+
+.navbar .nav-link:hover {
+    color: #cccccc;
+}
+
+/* Botón de cerrar sesión */
+.btn-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    color: #cccccc;
+}
+
+/* Títulos */
+h1 {
+    color: #303845;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la tabla */
+.table {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table thead {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Estilos para las tarjetas */
+.card-header {
+    background-color: #303845;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Badges (etiquetas de estado) */
+.badge {
+    font-size: 0.875em;
+    padding: 0.5em 0.75em;
+    border-radius: 12px;
+}
+
+.badge.bg-warning {
+    background-color: #ffc107;
+}
+
+.badge.bg-primary {
+    background-color: #007bff;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545;
+}
+
+.badge.bg-success {
+    background-color: #28a745;
+}
+
+/* Botones */
+.btn {
+    margin-right: 5px;
+    font-size: 0.875em;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+/* Scroll para tablas */
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Barra de búsqueda */
+input[type="text"], input[type="date"] {
+    border-radius: 5px;
+    box-shadow: none;
+    padding: 0.5em 1em;
+}
+
+button {
+    border-radius: 5px;
+    padding: 0.5em 1em;
+}

@@ -8,6 +8,9 @@ use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\DocumentosController; // Ensure this line is present and correct
 use App\Http\Controllers\UserController; // Ensure this line is present and correct
 use App\Http\Controllers\AdminController; // Ensure this line is present and correct
+use App\Http\Controllers\formularioController; // Ensure this line is present and correct
+use App\Http\Controllers\SolicitudesController; // Ensure this line is present and correct
+
 
 /**
  * Rutas del dashboard (protegidas por autenticación)
@@ -62,6 +65,12 @@ Route::get('/documentos/show/{id}', [DocumentosController::class, 'show'])->name
     Route::get('/perfil', [UserController::class, 'perfil'])->name('user.perfil');
     Route::post('/perfil', [UserController::class, 'actualizarPerfil'])->name('user.perfil.update');
 
+    // Rutas de solicitudes
+    Route::get('/solicitudes', [SolicitudesController::class, 'Solicitudes'])->name('solicitudes');
+    Route::post('/formulario', [FormularioController::class, 'store'])->name('formulario.store');
+    Route::get('/formulario', [FormularioController::class, 'formulario'])->name('formulario.index');
+
+    
     Route::get('/perfil/cambiar-contrasena', [UserController::class, 'cambiarContrasena'])->name('user.cambiar-contrasena');
     Route::post('/perfil/cambiar-contrasena', [UserController::class, 'actualizarContrasena'])->name('user.cambiar-contrasena.update');
 
