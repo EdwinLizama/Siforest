@@ -40,26 +40,49 @@
     <!-- Sidebar -->
     <div class="container-fluid">
         <div class="row">
-            <div id="sidebar" class="col-md-3 sidebar">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i>
-                            Inicio</a>
+
+            <div id="sidebar" class="col-md-3 sidebar bg-dark text-white">
+                <div class="sidebar-header text-center py-4">
+                    <h2>Admin Dashboard</h2>
+                </div>
+                <ul class="nav flex-column p-3">
+                    <li class="nav-item mb-3">
+                        <a class="nav-link text-white {{ request()->is('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                            <i class="fas fa-home"></i> Inicio
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.usuarios') }}"><i class="fas fa-users"></i>
-                            Usuarios</a>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link text-white {{ request()->is('admin/usuarios*') ? 'active' : '' }}" href="{{ route('admin.usuarios') }}">
+                            <i class="fas fa-users"></i> Usuarios
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.documentos') }}"><i
-                                class="fas fa-file-alt"></i> Documentos</a>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link text-white {{ request()->is('admin/documentos*') ? 'active' : '' }}" href="{{ route('admin.documentos') }}">
+                            <i class="fas fa-file-alt"></i> Documentos
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('admin.solicitudes') }}"><i
-                                class="fas fa-folder-open"></i> Solicitudes</a>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link text-white {{ request()->is('admin/solicitudes*') ? 'active' : '' }}" href="{{ route('admin.solicitudes') }}">
+                            <i class="fas fa-folder-open"></i> Solicitudes
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link text-white {{ request()->is('admin/mapa*') ? 'active' : '' }}" href="{{ route('admin.solicitudes.mapa') }}">
+                            <i class="fas fa-map-marker-alt"></i> Mapa de Solicitudes
+                        </a>
+                    </li>
+                    <!-- Logout -->
+                    <li class="nav-item mb-3">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <a class="nav-link text-white" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                            </a>
+                        </form>
                     </li>
                 </ul>
             </div>
+            
 
             <!-- Main Content -->
             <div id="main-content" class="col-md-9 main-content">
@@ -104,14 +127,14 @@
                         <canvas id="solicitudesChart"></canvas>
                     </div>
 
-                    <!-- Barra de búsqueda -->
+                    <!-- Barra de búsqueda 
                     <form action="" method="GET" class="my-3">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control"
                                 placeholder="Buscar por nombre o estado...">
                             <button type="submit" class="btn btn-outline-primary btn-sm">Buscar</button>
                         </div>
-                    </form>
+                    </form>-->
 
                     <!-- Pestañas (Tabs) para los diferentes estados de las solicitudes -->
                     <ul class="nav nav-tabs">
@@ -217,6 +240,17 @@
                                                                 </button>
                                                             </form>
                                                         </td>
+                                                        <td>
+                                                            <!--eliminar solicitud-->
+                                                            <form action="{{ route('admin.solicitudes.eliminar', $solicitud->id) }}"
+                                                                method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                                                </button>
+                                                            </form>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -253,6 +287,17 @@
                                                         <td>{{ $solicitud->nombre }}</td>
                                                         <td>{{ $solicitud->fecha_solicitud }}</td>
                                                         <td>{{ $solicitud->motivo_rechazo }}</td>
+                                                        <td>
+                                                            <!--eliminar solicitud-->
+                                                            <form action="{{ route('admin.solicitudes.eliminar', $solicitud->id) }}"
+                                                                method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                                                </button>
+                                                            </form>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

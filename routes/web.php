@@ -32,8 +32,11 @@ Route::middleware('auth')->group(function () {
  
 
 
+
     // Ruta para ver la lista de solicitudes en revisión
     Route::get('/admin/solicitudes', [AdminSolicitudController::class, 'index'])->name('admin.solicitudes');
+    Route::get('/admin/solicitudes/mapa', [AdminSolicitudController::class, 'mostrarMapaSolicitudes'])->name('admin.solicitudes.mapa');
+    Route::delete('/admin/solicitudes/eliminar/{id}', [AdminSolicitudController::class, 'destroy'])->name('admin.solicitudes.eliminar');
 
     // Ruta para aprobar una solicitud
     Route::post('/admin/solicitudes/aprobar/{id}', [AdminSolicitudController::class, 'aprobar'])->name('admin.solicitudes.aprobar');
@@ -41,6 +44,7 @@ Route::middleware('auth')->group(function () {
     // Ruta para rechazar una solicitud (con motivo)
     Route::post('/admin/solicitudes/rechazar/{id}', [AdminSolicitudController::class, 'rechazar'])->name('admin.solicitudes.rechazar');
     Route::get('admin/solicitudes/{id}', [AdminSolicitudController::class, 'showAdmin'])->name('admin.show');
+   
 
     // Ruta para la vista de configuración del administrador
     Route::get('/admin/configuracion', [AdminController::class, 'showConfig'])->name('admin.config');
@@ -87,6 +91,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/formulario/{solicitud}/edit', [FormularioController::class, 'edit'])->name('solicitud.edit');
     Route::put('/solicitud/{solicitud}', [FormularioController::class, 'update'])->name('solicitud.update');
     Route::delete('/solicitud/{solicitud}', [FormularioController::class, 'destroy'])->name('solicitud.destroy');
+  
 
     Route::get('/perfil/cambiar-contrasena', [UserController::class, 'cambiarContrasena'])->name('user.cambiar-contrasena');
     Route::post('/perfil/cambiar-contrasena', [UserController::class, 'actualizarContrasena'])->name('user.cambiar-contrasena.update');

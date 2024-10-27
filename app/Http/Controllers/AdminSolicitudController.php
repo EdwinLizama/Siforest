@@ -10,14 +10,15 @@ class AdminSolicitudController extends Controller
     // Mostrar lista de solicitudes en revisión
     public function index()
     {
+
         $solicitudesPendientes = Solicitud::where('estado', 'en revision')->get();
         $solicitudesAprobadas = Solicitud::where('estado', 'aprobado')->get();
         $solicitudesRechazadas = Solicitud::where('estado', 'rechazado')->get();
-    
+
         $totalPendientes = $solicitudesPendientes->count();
         $totalAprobadas = $solicitudesAprobadas->count();
         $totalRechazadas = $solicitudesRechazadas->count();
-    
+
         return view('admin.admin_solicitudes', compact(
             'solicitudesPendientes',
             'solicitudesAprobadas',
@@ -27,7 +28,7 @@ class AdminSolicitudController extends Controller
             'totalRechazadas'
         ));
     }
-    
+
 
     // Aprobar una solicitud
     public function aprobar($id)
@@ -44,7 +45,7 @@ class AdminSolicitudController extends Controller
     {
         $solicitud = Solicitud::findOrFail($id);
         $solicitud->estado = 'rechazado';
-        $solicitud->motivo_rechazo = $request->input('motivo_rechazo');  
+        $solicitud->motivo_rechazo = $request->input('motivo_rechazo');
         $solicitud->save();
 
         return redirect()->route('admin.solicitudes')->with('success', 'Solicitud rechazada con éxito');
@@ -54,4 +55,23 @@ class AdminSolicitudController extends Controller
         $solicitud = Solicitud::findOrFail($id);
         return view('admin.admin_show', compact('solicitud'));
     }
+        public function mostrarMapaSolicitudes()
+    {
+        
+        // Obtener todas las solicitudes que tengan latitud y longitud
+        $solicitudes = Solicitud::whereNotNull('latitud')->whereNotNull('longitud')->get();
+
+        return view('admin.adminmap', compact('solicitudes'));
+    }
+    //eliminar solicitud
+    public function destroy($id)
+    {
+        $solicitud = Solicitud::findOrFail($id);
+        $solicitud->delete();
+
+        return redirect()->route('admin.solicitudes')->with('success', 'Solicitud eliminada con éxito');
+    }
+    
+
 }
+

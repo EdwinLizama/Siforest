@@ -47,6 +47,8 @@ class Solicitud extends Model
         'acceso',
         'justificacion',
         'estado',
+        'latitud', // Agregar latitud
+        'longitud', // Agregar longitud
         'motivo_rechazo'
     ];
 }

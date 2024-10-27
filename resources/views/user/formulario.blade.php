@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -97,7 +96,8 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="departamento_solicitante">Departamento:</label>
-                        <select class="form-control" id="departamento_solicitante" name="departamento_solicitante" required>
+                        <select class="form-control" id="departamento_solicitante" name="departamento_solicitante"
+                            required>
                             <option value="">Seleccione un departamento</option>
                             @foreach ($departamentos as $departamento)
                                 <option value="{{ $departamento }}">{{ $departamento }}</option>
@@ -106,7 +106,8 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="municipio_solicitante">Municipio:</label>
-                        <select class="form-control" id="municipio_solicitante" name="municipio_solicitante" disabled>
+                        <select class="form-control" id="municipio_solicitante" name="municipio_solicitante"
+                            disabled>
                             <option value="">Seleccione un municipio</option>
                         </select>
                     </div>
@@ -118,6 +119,23 @@
                         <label for="caserio">Caserío:</label>
                         <input type="text" class="form-control" id="caserio" name="caserio">
                     </div>
+                </div>
+                <!-- Botón para obtener ubicación -->
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label>Ubicación actual:</label><br>
+                        <button type="button" class="btn btn-primary" onclick="obtenerUbicacion()">Obtener
+                            Ubicación</button>
+                    </div>
+                </div>
+
+                <!-- Campos ocultos para almacenar latitud y longitud -->
+                <input type="hidden" id="latitud" name="latitud">
+                <input type="hidden" id="longitud" name="longitud">
+
+                <div class="form-group">
+                    <label for="acceso">Acceso:</label>
+                    <input type="text" class="form-control" id="acceso" name="acceso">
                 </div>
 
                 <div class="form-group">
@@ -167,11 +185,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="especie_adicional1">Especie:</label>
-                        <input type="text" class="form-control" id="especie_adicional1" name="especie_adicional1">
+                        <input type="text" class="form-control" id="especie_adicional1"
+                            name="especie_adicional1">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="cantidad_adicional1">Cantidad:</label>
-                        <input type="number" class="form-control" id="cantidad_adicional1" name="cantidad_adicional1">
+                        <input type="number" class="form-control" id="cantidad_adicional1"
+                            name="cantidad_adicional1">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="total_adicional1">Total:</label>
@@ -183,11 +203,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="especie_adicional2">Especie:</label>
-                        <input type="text" class="form-control" id="especie_adicional2" name="especie_adicional2">
+                        <input type="text" class="form-control" id="especie_adicional2"
+                            name="especie_adicional2">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="cantidad_adicional2">Cantidad:</label>
-                        <input type="number" class="form-control" id="cantidad_adicional2" name="cantidad_adicional2">
+                        <input type="number" class="form-control" id="cantidad_adicional2"
+                            name="cantidad_adicional2">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="total_adicional2">Total:</label>
@@ -199,11 +221,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="especie_adicional3">Especie:</label>
-                        <input type="text" class="form-control" id="especie_adicional3" name="especie_adicional3">
+                        <input type="text" class="form-control" id="especie_adicional3"
+                            name="especie_adicional3">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="cantidad_adicional3">Cantidad:</label>
-                        <input type="number" class="form-control" id="cantidad_adicional3" name="cantidad_adicional3">
+                        <input type="number" class="form-control" id="cantidad_adicional3"
+                            name="cantidad_adicional3">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="total_adicional3">Total:</label>
@@ -217,7 +241,8 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="departamento_propiedad">Departamento:</label>
-                        <select class="form-control" id="departamento_propiedad" name="departamento_propiedad" required>
+                        <select class="form-control" id="departamento_propiedad" name="departamento_propiedad"
+                            required>
                             <option value="">Seleccione un departamento</option>
                             @foreach ($departamentos as $departamento)
                                 <option value="{{ $departamento }}">{{ $departamento }}</option>
@@ -342,16 +367,17 @@
 
     <script>
         // Detecta si hay un mensaje de éxito en la sesión
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: '¡Formulario enviado!',
-            text: '{{ session('success') }}',
-            timer: 3000,
-            showConfirmButton: false
-        }).then(() => {
-            window.location.href = "{{ route('user.dashboard') }}"; // Redirigir después de que se cierra el mensaje
-        });
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: '¡Formulario enviado!',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href =
+                    "{{ route('user.dashboard') }}"; // Redirigir después de que se cierra el mensaje
+            });
         @endif
 
         // Manejo de envío del formulario
@@ -581,6 +607,44 @@
                 });
             });
         });
+
+        function obtenerUbicacion() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(//navigafot.geolocation.watchPosition es para seguir la ubicacion en tiempo real 
+                    function(position) {
+                        // Asignar la latitud y longitud obtenidas a los campos ocultos
+                        document.getElementById('latitud').value = position.coords.latitude;
+                        document.getElementById('longitud').value = position.coords.longitude;
+
+                        // Mostrar un mensaje con la latitud y longitud obtenidas
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Ubicación obtenida',
+                            text: `Latitud: ${position.coords.latitude}, Longitud: ${position.coords.longitude}`,
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    },
+                    function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo obtener la ubicación. Por favor, verifica los permisos de ubicación en tu dispositivo.',
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    }
+                );
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'La geolocalización no es soportada por este navegador.',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            }
+        }
     </script>
 </body>
 

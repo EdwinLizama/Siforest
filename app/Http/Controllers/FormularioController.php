@@ -32,50 +32,53 @@ class FormularioController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'expediente_r' => 'nullable|string',
-            'fecha_solicitud' => 'required|date',
-            'nombre' => 'required|string',
-            'nit' => 'nullable|string',
-            'dui' => 'required|string',
-            'emitido_en' => 'nullable|string',
-            'fecha_emision' => 'nullable|date',
-            'departamento_solicitante' => 'required|string',
-            'municipio_solicitante' => 'nullable|string',
-            'canton' => 'nullable|string',
-            'caserio' => 'nullable|string',
-            'direccion' => 'nullable|string',
-            'telefono_fijo' => 'nullable|string',
-            'celular' => 'required|string',
-            'correo' => 'required|email',
-            'especie' => 'required|string',
-            'cantidad' => 'required|integer',
-            'total' => 'required|string',
-            'especie_adicional1' => 'nullable|string',
-            'cantidad_adicional1' => 'nullable|integer',
-            'total_adicional1' => 'nullable|string',
-            'especie_adicional2' => 'nullable|string',
-            'cantidad_adicional2' => 'nullable|integer',
-            'total_adicional2' => 'nullable|string',
-            'especie_adicional3' => 'nullable|string',
-            'cantidad_adicional3' => 'nullable|integer',
-            'total_adicional3' => 'nullable|string',
-            'departamento_propiedad' => 'nullable|string',
-            'municipio_propiedad' => 'nullable|string',
-            'canton_prop' => 'nullable|string',
-            'caserio_prop' => 'nullable|string',
-            'acceso' => 'nullable|string',
-            'justificacion' => 'required|string',
+{
+    $validated = $request->validate([
+        'expediente_r' => 'nullable|string',
+        'fecha_solicitud' => 'required|date',
+        'nombre' => 'required|string',
+        'nit' => 'nullable|string',
+        'dui' => 'required|string',
+        'emitido_en' => 'nullable|string',
+        'fecha_emision' => 'nullable|date',
+        'departamento_solicitante' => 'required|string',
+        'municipio_solicitante' => 'nullable|string',
+        'canton' => 'nullable|string',
+        'caserio' => 'nullable|string',
+        'direccion' => 'nullable|string',
+        'telefono_fijo' => 'nullable|string',
+        'celular' => 'required|string',
+        'correo' => 'required|email',
+        'especie' => 'required|string',
+        'cantidad' => 'required|integer',
+        'total' => 'required|string',
+        'especie_adicional1' => 'nullable|string',
+        'cantidad_adicional1' => 'nullable|integer',
+        'total_adicional1' => 'nullable|string',
+        'especie_adicional2' => 'nullable|string',
+        'cantidad_adicional2' => 'nullable|integer',
+        'total_adicional2' => 'nullable|string',
+        'especie_adicional3' => 'nullable|string',
+        'cantidad_adicional3' => 'nullable|integer',
+        'total_adicional3' => 'nullable|string',
+        'departamento_propiedad' => 'nullable|string',
+        'municipio_propiedad' => 'nullable|string',
+        'canton_prop' => 'nullable|string',
+        'caserio_prop' => 'nullable|string',
+        'acceso' => 'nullable|string',
+        'justificacion' => 'required|string',
+        
+        // Validaciones para latitud y longitud
+        'latitud' => 'nullable|numeric',
+        'longitud' => 'nullable|numeric',
+    ]);
 
-        ]);
+    // Guardar la solicitud en la base de datos con estado 'en revisión'
+    Solicitud::create(array_merge($validated, ['estado' => 'en revision']));
 
-        // Guardar la solicitud en la base de datos con estado 'en revision'
-        Solicitud::create(array_merge($validated, ['estado' => 'en revision']));
+    return redirect()->route('solicitudes')->with('success', 'Solicitud enviada y está en revisión.');
+}
 
-
-        return redirect()->route('solicitudes')->with('success', 'Solicitud enviada y está en revisión.');
-    }
 
     public function show(Solicitud $solicitud)
     {

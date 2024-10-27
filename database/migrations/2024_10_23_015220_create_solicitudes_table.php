@@ -58,6 +58,10 @@ class CreateSolicitudesTable extends Migration
             $table->string('caserio_prop')->nullable();
             $table->string('acceso')->nullable();
 
+            // Coordenadas de la propiedad
+            $table->decimal('latitud', 10, 7)->nullable();
+            $table->decimal('longitud', 10, 7)->nullable();
+
             // Justificación
             $table->string('justificacion')->nullable();
 
