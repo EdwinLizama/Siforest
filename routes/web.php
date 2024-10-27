@@ -84,13 +84,13 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de solicitudes
     Route::get('/solicitudes', [SolicitudesController::class, 'Solicitudes'])->name('solicitudes');
-    Route::post('/formulario', [FormularioController::class, 'store'])->name('formulario.store');
-    Route::get('/formulario', [FormularioController::class, 'formulario'])->name('formulario.index');
-    Route::get('/formulario/{solicitud}', [FormularioController::class, 'show'])->name('solicitud.show');
-    Route::get('/solicitud/{solicitud}/pdf', [FormularioController::class, 'downloadPDF'])->name('solicitud.pdf');
-    Route::get('/formulario/{solicitud}/edit', [FormularioController::class, 'edit'])->name('solicitud.edit');
-    Route::put('/solicitud/{solicitud}', [FormularioController::class, 'update'])->name('solicitud.update');
-    Route::delete('/solicitud/{solicitud}', [FormularioController::class, 'destroy'])->name('solicitud.destroy');
+    Route::post('/formulario', [formularioController::class, 'store'])->name('formulario.store');
+    Route::get('/formulario', [formularioController::class, 'formulario'])->name('formulario.index');
+    Route::get('/formulario/{solicitud}', [formularioController::class, 'show'])->name('solicitud.show');
+    Route::get('/solicitud/{solicitud}/pdf', [formularioController::class, 'downloadPDF'])->name('solicitud.pdf');
+    Route::get('/formulario/{solicitud}/edit', [formularioController::class, 'edit'])->name('solicitud.edit');
+    Route::put('/solicitud/{solicitud}', [formularioController::class, 'update'])->name('solicitud.update');
+    Route::delete('/solicitud/{solicitud}', [formularioController::class, 'destroy'])->name('solicitud.destroy');
   
 
     Route::get('/perfil/cambiar-contrasena', [UserController::class, 'cambiarContrasena'])->name('user.cambiar-contrasena');
