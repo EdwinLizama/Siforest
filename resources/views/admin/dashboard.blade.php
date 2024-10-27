@@ -59,6 +59,12 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{route('admin.config')}}"><i class="fas fa-cog"></i> Configuración</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{route('admin.solicitudes')}}">
+                            <i class="fas fa-file-alt"></i> Solicitudes
+                        </a>
+                    </li>
+                    
 
                 </ul>
 

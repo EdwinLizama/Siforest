@@ -46,6 +46,7 @@ class Solicitud extends Model
         'caserio_prop',
         'acceso',
         'justificacion',
-        'estado'
+        'estado',
+        'motivo_rechazo'
     ];
 }

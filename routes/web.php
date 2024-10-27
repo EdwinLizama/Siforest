@@ -9,6 +9,7 @@ use App\Http\Controllers\DocumentosController; // Ensure this line is present an
 use App\Http\Controllers\UserController; // Ensure this line is present and correct
 use App\Http\Controllers\AdminController; // Ensure this line is present and correct
 use App\Http\Controllers\formularioController; // Ensure this line is present and correct
+use App\Http\Controllers\AdminSolicitudController; // Ensure this line is present and correct
 use App\Http\Controllers\SolicitudesController; // Ensure this line is present and correct
 
 
@@ -28,6 +29,18 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/usuarios/{id}', [UsuariosController::class, 'update'])->name('usuarios.update'); // Actualizar usuario
     Route::post('/admin/usuarios/{id}/cambiar-rol', [UsuariosController::class, 'cambiarRol'])->name('usuarios.cambiar-rol'); // Cambiar rol de usuario
     Route::delete('/admin/usuarios/{id}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy'); // Eliminar usuario
+ 
+
+
+    // Ruta para ver la lista de solicitudes en revisión
+    Route::get('/admin/solicitudes', [AdminSolicitudController::class, 'index'])->name('admin.solicitudes');
+
+    // Ruta para aprobar una solicitud
+    Route::post('/admin/solicitudes/aprobar/{id}', [AdminSolicitudController::class, 'aprobar'])->name('admin.solicitudes.aprobar');
+
+    // Ruta para rechazar una solicitud (con motivo)
+    Route::post('/admin/solicitudes/rechazar/{id}', [AdminSolicitudController::class, 'rechazar'])->name('admin.solicitudes.rechazar');
+    Route::get('admin/solicitudes/{id}', [AdminSolicitudController::class, 'showAdmin'])->name('admin.show');
 
     // Ruta para la vista de configuración del administrador
     Route::get('/admin/configuracion', [AdminController::class, 'showConfig'])->name('admin.config');
@@ -42,22 +55,22 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/language/update', [AdminController::class, 'updateLanguage'])->name('admin.language.update');
 
 
-// Rutas de gestión de documentos para administradores
-Route::get('/admin/documentos', [DocumentosController::class, 'index'])->name('admin.documentos');
-Route::post('admin/documentos/store', [DocumentosController::class, 'store'])->name('admin.documentos.store');
-Route::put('admin/documentos/{id}', [DocumentosController::class, 'update'])->name('admin.documentos.update');
-Route::delete('admin/documentos/{id}', [DocumentosController::class, 'destroyAdmin'])->name('admin.documentos.destroy');
-Route::get('/admin/documentos/download/{id}', [DocumentosController::class, 'download'])->name('admin.documentos.download');
+    // Rutas de gestión de documentos para administradores
+    Route::get('/admin/documentos', [DocumentosController::class, 'index'])->name('admin.documentos');
+    Route::post('admin/documentos/store', [DocumentosController::class, 'store'])->name('admin.documentos.store');
+    Route::put('admin/documentos/{id}', [DocumentosController::class, 'update'])->name('admin.documentos.update');
+    Route::delete('admin/documentos/{id}', [DocumentosController::class, 'destroyAdmin'])->name('admin.documentos.destroy');
+    Route::get('/admin/documentos/download/{id}', [DocumentosController::class, 'download'])->name('admin.documentos.download');
 
-// Rutas de gestión de documentos para usuarios normales
-Route::get('/documentos', [DocumentosController::class, 'index'])->name('documentos.index'); // Listar documentos
-Route::get('/documentos/create', [DocumentosController::class, 'create'])->name('documentos.create'); // Mostrar formulario para subir un nuevo documento
-Route::post('/documentos', [DocumentosController::class, 'store'])->name('user.documentos.store'); // Almacenar nuevo documento
-Route::get('/documentos/{id}/edit', [DocumentosController::class, 'edit'])->name('documentos.edit');
-Route::put('/documentos/{id}', [DocumentosController::class, 'update'])->name('documentos.update');
-Route::delete('/documentos/{id}', [DocumentosController::class, 'destroy'])->name('documentos.destroy');
-Route::get('/documentos/{id}/download', [DocumentosController::class, 'download'])->name('documentos.download'); 
-Route::get('/documentos/show/{id}', [DocumentosController::class, 'show'])->name('documentos.show');
+    // Rutas de gestión de documentos para usuarios normales
+    Route::get('/documentos', [DocumentosController::class, 'index'])->name('documentos.index'); // Listar documentos
+    Route::get('/documentos/create', [DocumentosController::class, 'create'])->name('documentos.create'); // Mostrar formulario para subir un nuevo documento
+    Route::post('/documentos', [DocumentosController::class, 'store'])->name('user.documentos.store'); // Almacenar nuevo documento
+    Route::get('/documentos/{id}/edit', [DocumentosController::class, 'edit'])->name('documentos.edit');
+    Route::put('/documentos/{id}', [DocumentosController::class, 'update'])->name('documentos.update');
+    Route::delete('/documentos/{id}', [DocumentosController::class, 'destroy'])->name('documentos.destroy');
+    Route::get('/documentos/{id}/download', [DocumentosController::class, 'download'])->name('documentos.download');
+    Route::get('/documentos/show/{id}', [DocumentosController::class, 'show'])->name('documentos.show');
 
 
     // Ruta para el dashboard del usuario
@@ -69,8 +82,12 @@ Route::get('/documentos/show/{id}', [DocumentosController::class, 'show'])->name
     Route::get('/solicitudes', [SolicitudesController::class, 'Solicitudes'])->name('solicitudes');
     Route::post('/formulario', [FormularioController::class, 'store'])->name('formulario.store');
     Route::get('/formulario', [FormularioController::class, 'formulario'])->name('formulario.index');
+    Route::get('/formulario/{solicitud}', [FormularioController::class, 'show'])->name('solicitud.show');
+    Route::get('/solicitud/{solicitud}/pdf', [FormularioController::class, 'downloadPDF'])->name('solicitud.pdf');
+    Route::get('/formulario/{solicitud}/edit', [FormularioController::class, 'edit'])->name('solicitud.edit');
+    Route::put('/solicitud/{solicitud}', [FormularioController::class, 'update'])->name('solicitud.update');
+    Route::delete('/solicitud/{solicitud}', [FormularioController::class, 'destroy'])->name('solicitud.destroy');
 
-    
     Route::get('/perfil/cambiar-contrasena', [UserController::class, 'cambiarContrasena'])->name('user.cambiar-contrasena');
     Route::post('/perfil/cambiar-contrasena', [UserController::class, 'actualizarContrasena'])->name('user.cambiar-contrasena.update');
 
