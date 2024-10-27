@@ -7,7 +7,7 @@ use App\Models\Solicitud;
 use App\Models\SolicitudPendiente;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-class FormularioController extends Controller
+class formularioController extends Controller
 {
     public function formulario()
     {
