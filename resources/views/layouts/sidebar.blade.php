@@ -39,6 +39,12 @@
             <a class="nav-link text-white {{ request()->is('/historial*') ? 'active' : '' }}" href="{{ route('historial.index') }}">
                 <i class="fas fa-history"></i> Historial de Cambios
             </a>
+        </li>
+        <!-- Perfil -->
+        <li class="nav-item mb-3">
+            <a class="nav-link text-white {{ request()->is('/configuracion') ? 'active' : '' }}" href="{{ route('admin.config') }}">
+                <i class="fas fa-user"></i> Perfil
+            </a>
         <!-- Logout -->
         <li class="nav-item mb-3">
             <form id="logout-form" action="{{ route('logout') }}" method="POST">
