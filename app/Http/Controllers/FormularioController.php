@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Solicitud;
 use App\Models\SolicitudPendiente;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\ActividadReciente;
+use App\Models\HistorialCambio;
 class FormularioController extends Controller
 {
     public function formulario()
@@ -144,15 +146,42 @@ class FormularioController extends Controller
             'justificacion' => 'nullable|string',
         ]);
         
+        // Historial de cambios
+        $cambiosRealizados = [];
+        foreach ($validated as $campo => $nuevoValor) {
+            if ($solicitud->{$campo} != $nuevoValor) {
+                $cambiosRealizados[] = "Campo '{$campo}' actualizado.";
+            }
+        }
+    
         // Cambiar el estado de la solicitud a 'en revision' si fue rechazada y se está editando
         if ($solicitud->estado == 'rechazado') {
             $validated['estado'] = 'en revision';
+            $cambiosRealizados[] = "Estado cambiado de 'rechazado' a 'en revision'";
         }
-
+    
+        // Actualizar la solicitud
         $solicitud->update($validated);
-
+    
+        // Registrar actividad reciente
+        ActividadReciente::create([
+            'descripcion' => 'Solicitud actualizada: ' . $solicitud->id,
+            'user_id' => Auth::user()->id,
+        ]);
+    
+        // Registrar en el historial de cambios si hay cambios realizados
+        if (count($cambiosRealizados) > 0) {
+            HistorialCambio::create([
+                'tipo_cambio' => 'actualización',
+                'descripcion_cambio' => implode(', ', $cambiosRealizados),
+                'user_id' => Auth::user()->id,
+                'solicitud_id' => $solicitud->id,
+            ]);
+        }
+    
         return redirect()->route('solicitudes')->with('update', 'Solicitud actualizada exitosamente.');
     }
+    
 
     public function destroy(Solicitud $solicitud)
     {

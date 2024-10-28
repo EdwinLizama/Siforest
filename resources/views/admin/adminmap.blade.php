@@ -119,6 +119,10 @@
                         <a class="nav-link text-white" href="#">
                             <i class="fas fa-map-marker-alt"></i> Mapa de Solicitudes</a>
                     </li>
+                    <li class="nav-item mb-3">
+                        <a class="nav-link text-white" href="{{ route('historial.index') }}">
+                            <i class="fas fa-history"></i> Historial de Cambios</a>
+                    </li>
                 </ul>
             </div>
 

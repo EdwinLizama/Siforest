@@ -15,6 +15,11 @@
                 <i class="fas fa-users"></i> Usuarios
             </a>
         </li>
+        <!--crear usuarios-->
+        <li class="nav-item mb-3">
+            <a class="nav-link text-white {{ request()->is('admin/usuarios/create') ? 'active' : '' }}" href="{{ route('admin.usuarios.create') }}">
+                <i class="fas fa-user-plus"></i> Crear Usuario
+            </a>
         <li class="nav-item mb-3">
             <a class="nav-link text-white {{ request()->is('admin/documentos*') ? 'active' : '' }}" href="{{ route('admin.documentos') }}">
                 <i class="fas fa-file-alt"></i> Documentos
@@ -30,6 +35,10 @@
                 <i class="fas fa-map-marker-alt"></i> Mapa de Solicitudes
             </a>
         </li>
+        <li class="nav-item mb-3">
+            <a class="nav-link text-white {{ request()->is('/historial*') ? 'active' : '' }}" href="{{ route('historial.index') }}">
+                <i class="fas fa-history"></i> Historial de Cambios
+            </a>
         <!-- Logout -->
         <li class="nav-item mb-3">
             <form id="logout-form" action="{{ route('logout') }}" method="POST">

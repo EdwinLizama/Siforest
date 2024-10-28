@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ActividadReciente;
 use Barryvdh\DomPDF\Facade as DomPDF;
+use App\Models\HistorialCambio;
 
 class DocumentosController extends Controller
 {
@@ -65,28 +66,54 @@ class DocumentosController extends Controller
             'descripcion' => 'required|string',
             'archivo' => 'nullable|mimes:pdf,doc|max:30720', // El archivo es opcional, solo si se quiere actualizar
         ]);
-
+    
         $documento = Documento::findOrFail($id);
-
-        // Actualizar los campos
-        $documento->nombre_documento = $request->nombre;
-        $documento->descripcion = $request->descripcion;
-
+    
+        // Historial: Obtener los valores antiguos antes de actualizar
+        $cambiosRealizados = [];
+    
+        if ($documento->nombre_documento !== $request->nombre) {
+            $cambiosRealizados[] = "Nombre del documento cambiado de '{$documento->nombre_documento}' a '{$request->nombre}'";
+        }
+    
+        if ($documento->descripcion !== $request->descripcion) {
+            $cambiosRealizados[] = "Descripción cambiada.";
+        }
+    
         if ($request->hasFile('archivo')) {
+            $cambiosRealizados[] = "Archivo actualizado.";
             // Eliminar el archivo antiguo si se sube uno nuevo
             Storage::delete($documento->archivo);
             // Guardar el nuevo archivo
             $documento->archivo = $request->file('archivo')->store('public/documentos');
         }
-
+    
+        // Actualizar los campos del documento
+        $documento->nombre_documento = $request->nombre;
+        $documento->descripcion = $request->descripcion;
+    
         $documento->save(); // Guardar los cambios
+    
         // Registrar actividad reciente
         ActividadReciente::create([
             'descripcion' => 'Documento actualizado: ' . $request->nombre,
             'user_id' => Auth::user()->id,
         ]);
+    
+        // Registrar en el historial de cambios si hay cambios realizados
+        if (count($cambiosRealizados) > 0) {
+            HistorialCambio::create([
+                'tipo_cambio' => 'actualización',
+                'descripcion_cambio' => implode(', ', $cambiosRealizados),
+                'user_id' => Auth::user()->id,
+                'documento_id' => $documento->id,
+            ]);
+        }
+    
         return redirect()->back()->with('success', 'Documento actualizado correctamente.');
     }
+    
+
     public function edit($id)
     {
         $documento = Documento::findOrFail($id); // Buscar el documento por su ID
@@ -107,7 +134,7 @@ class DocumentosController extends Controller
         ]);
         return redirect()->route('user.dashboard')->with('success', 'Documento eliminado correctamente.');
     }
-    
+
     public function destroyAdmin($id)
     {
         $documento = Documento::findOrFail($id);
@@ -121,15 +148,12 @@ class DocumentosController extends Controller
     }
 
     //mostrar documento
-  // Mostrar documento
-public function show($id)
-{
-    $documento = Documento::findOrFail($id);
+    // Mostrar documento
+    public function show($id)
+    {
+        $documento = Documento::findOrFail($id);
 
-    // Devuelve el archivo almacenado en la ruta 'app' en el almacenamiento
-    return response()->file(storage_path('app/' . $documento->archivo));
-}
-
-    
-    
+        // Devuelve el archivo almacenado en la ruta 'app' en el almacenamiento
+        return response()->file(storage_path('app/' . $documento->archivo));
+    }
 }
