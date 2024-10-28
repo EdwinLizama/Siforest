@@ -96,18 +96,20 @@
                                         data-bs-target="#editModal-{{ $documento->id }}">
                                         <i class="fas fa-edit"></i> Editar
                                     </button>
-                                    <form action="{{ route('documentos.destroy', $documento->id) }}" method="POST"
+                                    <form id="deleteForm-{{ $documento->id }}" action="{{ route('documentos.destroy', $documento->id) }}" method="POST"
                                         style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="showConfirmDelete({{ $documento->id }})">
                                             <i class="fas fa-trash-alt"></i> Eliminar
                                         </button>
                                     </form>
-                                    <a href="{{ route('documentos.show', $documento->id) }}" class="btn btn-info btn-sm">
+
+                                    <a href="{{ route('documentos.show', $documento->id) }}"
+                                        class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i> Ver
                                     </a>
-                                    
+
 
                                 </td>
                             </tr>
@@ -152,7 +154,6 @@
                                     </div>
                                 </div>
                             </div>
-                    
                         @endforeach
                     </tbody>
                 </table>
@@ -162,6 +163,26 @@
             </div>
         </div>
     </div>
+    <!-- Modal de confirmación de eliminación -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este archivo?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal para subir documento -->
     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
@@ -231,6 +252,28 @@
             document.getElementById('filtrarFecha').value = '';
             buscarDocumento();
         }
+
+  
+
+            let formToSubmit;
+
+            function showConfirmDelete(documentId) {
+                // Asignamos el formulario correspondiente al documento que se quiere eliminar
+                formToSubmit = document.getElementById('deleteForm-' + documentId);
+
+                // Mostramos el modal de confirmación
+                var confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+                confirmModal.show();
+            }
+
+            // Cuando el usuario confirme la eliminación, enviamos el formulario
+            document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+                if (formToSubmit) {
+                    formToSubmit.submit();
+                }
+            });
+
+        
     </script>
 </body>
 

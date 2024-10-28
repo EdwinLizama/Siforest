@@ -47,32 +47,38 @@
                 </div>
                 <ul class="nav flex-column p-3">
                     <li class="nav-item mb-3">
-                        <a class="nav-link text-white {{ request()->is('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                        <a class="nav-link text-white {{ request()->is('admin/dashboard') ? 'active' : '' }}"
+                            href="{{ route('admin.dashboard') }}">
                             <i class="fas fa-home"></i> Inicio
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a class="nav-link text-white {{ request()->is('admin/usuarios*') ? 'active' : '' }}" href="{{ route('admin.usuarios') }}">
+                        <a class="nav-link text-white {{ request()->is('admin/usuarios*') ? 'active' : '' }}"
+                            href="{{ route('admin.usuarios') }}">
                             <i class="fas fa-users"></i> Usuarios
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a class="nav-link text-white {{ request()->is('admin/documentos*') ? 'active' : '' }}" href="{{ route('admin.documentos') }}">
+                        <a class="nav-link text-white {{ request()->is('admin/documentos*') ? 'active' : '' }}"
+                            href="{{ route('admin.documentos') }}">
                             <i class="fas fa-file-alt"></i> Documentos
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a class="nav-link text-white {{ request()->is('admin/solicitudes*') ? 'active' : '' }}" href="{{ route('admin.solicitudes') }}">
+                        <a class="nav-link text-white {{ request()->is('admin/solicitudes*') ? 'active' : '' }}"
+                            href="{{ route('admin.solicitudes') }}">
                             <i class="fas fa-folder-open"></i> Solicitudes
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a class="nav-link text-white {{ request()->is('admin/mapa*') ? 'active' : '' }}" href="{{ route('admin.solicitudes.mapa') }}">
+                        <a class="nav-link text-white {{ request()->is('admin/mapa*') ? 'active' : '' }}"
+                            href="{{ route('admin.solicitudes.mapa') }}">
                             <i class="fas fa-map-marker-alt"></i> Mapa de Solicitudes
                         </a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a class="nav-link text-white {{ request()->is('admin/historial*') ? 'active' : '' }}" href="{{ route('historial.index') }}">
+                        <a class="nav-link text-white {{ request()->is('admin/historial*') ? 'active' : '' }}"
+                            href="{{ route('historial.index') }}">
                             <i class="fas fa-history"></i> Historial de Cambios
                         </a>
                     </li>
@@ -80,14 +86,15 @@
                     <li class="nav-item mb-3">
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <a class="nav-link text-white" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="nav-link text-white" href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fas fa-sign-out-alt"></i> Cerrar sesión
                             </a>
                         </form>
                     </li>
                 </ul>
             </div>
-            
+
 
             <!-- Main Content -->
             <div id="main-content" class="col-md-9 main-content">
@@ -132,7 +139,7 @@
                         <canvas id="solicitudesChart"></canvas>
                     </div>
 
-                    <!-- Barra de búsqueda 
+                    <!-- Barra de búsqueda
                     <form action="" method="GET" class="my-3">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control"
@@ -247,14 +254,17 @@
                                                         </td>
                                                         <td>
                                                             <!--eliminar solicitud-->
-                                                            <form action="{{ route('admin.solicitudes.eliminar', $solicitud->id) }}"
-                                                                method="POST" class="d-inline">
+                                                            <form id="deleteForm-{{ $solicitud->id }}"
+                                                                action="{{ route('admin.solicitudes.eliminar', $solicitud->id) }}"
+                                                                method="POST" style="display:inline-block;">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                                <button type="button" class="btn btn-danger btn-sm"
+                                                                    onclick="showConfirmDelete({{ $solicitud->id }})">
                                                                     <i class="fas fa-trash-alt"></i> Eliminar
                                                                 </button>
                                                             </form>
+
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -293,15 +303,18 @@
                                                         <td>{{ $solicitud->fecha_solicitud }}</td>
                                                         <td>{{ $solicitud->motivo_rechazo }}</td>
                                                         <td>
-                                                            <!--eliminar solicitud-->
-                                                            <form action="{{ route('admin.solicitudes.eliminar', $solicitud->id) }}"
-                                                                method="POST" class="d-inline">
+                                                            <!-- Eliminar solicitud (no envía el formulario directamente) -->
+                                                            <form id="deleteForm-{{ $solicitud->id }}"
+                                                                action="{{ route('admin.solicitudes.eliminar', $solicitud->id) }}"
+                                                                method="POST" style="display:inline-block;">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                                <button type="button" class="btn btn-danger btn-sm"
+                                                                    onclick="showConfirmDelete({{ $solicitud->id }})">
                                                                     <i class="fas fa-trash-alt"></i> Eliminar
                                                                 </button>
                                                             </form>
+
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -316,6 +329,26 @@
             </div>
         </div>
     </div>
+    <!-- Modal de confirmación de eliminación -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar este archivo?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal para motivo de rechazo -->
     <div class="modal fade" id="modal-rechazo" tabindex="-1" aria-labelledby="rechazoLabel" aria-hidden="true">
@@ -382,6 +415,27 @@
                         beginAtZero: true
                     }
                 }
+            }
+        });
+
+
+
+
+        let formToSubmit = null;
+
+        function showConfirmDelete(solicitudId) {
+            // Asignar el formulario correspondiente a la solicitud que se quiere eliminar
+            formToSubmit = document.getElementById('deleteForm-' + solicitudId);
+
+            // Mostrar el modal de confirmación
+            var confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+            confirmModal.show();
+        }
+
+        // Cuando el usuario confirme la eliminación, enviamos el formulario
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+            if (formToSubmit) {
+                formToSubmit.submit();
             }
         });
     </script>
