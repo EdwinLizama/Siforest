@@ -67,6 +67,17 @@
                             </td>
                         </tr>
 
+                    @endforeach
+                </tbody>
+            </table>
+            <!-- Mensaje cuando no se encuentran resultados -->
+            <div id="noResultsMessage" style="display:none;" class="alert alert-warning">
+                No se encontraron documentos que coincidan con la búsqueda.
+            </div>
+        </div>
+    </div>
+</div>
+
                         <!-- Modal para editar documento -->
                         <div class="modal fade" id="editModal-{{ $documento->id }}" tabindex="-1" aria-labelledby="editModalLabel-{{ $documento->id }}" aria-hidden="true">
                             <div class="modal-dialog">
@@ -97,17 +108,6 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                </tbody>
-            </table>
-            <!-- Mensaje cuando no se encuentran resultados -->
-            <div id="noResultsMessage" style="display:none;" class="alert alert-warning">
-                No se encontraron documentos que coincidan con la búsqueda.
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Modal para subir documento -->
 <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
     <div class="modal-dialog">
