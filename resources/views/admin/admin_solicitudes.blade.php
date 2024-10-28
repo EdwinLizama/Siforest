@@ -347,7 +347,7 @@
     <script>
         function mostrarMotivoRechazo(id) {
             const form = document.getElementById('rechazar-form');
-            form.action = 'http://localhost/DSI/Siforest/public/admin/solicitudes/rechazar/' + id;
+            form.action = 'https://siforest-production-0ade.up.railway.app/admin/solicitudes/rechazar/' + id;
             const modal = new bootstrap.Modal(document.getElementById('modal-rechazo'));
             modal.show();
         }
